@@ -28,10 +28,10 @@ from torch.utils.data import DataLoader
 import json
 import os
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '6,7,8,9'
+os.environ['CUDA_VISIBLE_DEVICES'] = '9'
 
 import sys
-sys.path.insert(0, '/data1/chzhang/fyx/SFTTrainer')
+sys.path.insert(0, '/home/yxfeng/SFTTrainer')
 from data.data_basic import DataBasic
 
 
@@ -88,7 +88,7 @@ class DFTTrainer:
     """
     
     def __init__(self, model, tokenizer, epochs=3, batch_size=4, lr=5e-5, 
-                 data_path='/data1/chzhang/fyx/SFTTrainer/datasets/math500/train.json',
+                 data_path='/home/yxfeng/SFTTrainer/datasets/math500/train.json',
                  max_length=1024):
         self.model = model
         self.tokenizer = tokenizer
@@ -301,7 +301,7 @@ class DFTTrainer:
         loss = self.compute_dft_loss(logits, labels)
         return loss
     
-    def save_model(self, output_dir='/data1/chzhang/fyx/SFTTrainer/checkpoints/dft'):
+    def save_model(self, output_dir='/home/yxfeng/SFTTrainer/checkpoints/dft'):
         """Save trained model and tokenizer"""
         os.makedirs(output_dir, exist_ok=True)
         
@@ -423,7 +423,7 @@ class DFTTrainer:
 
 if __name__ == '__main__':
     # Initialize model and tokenizer
-    model_path = '/data1/models/qwen/Qwen2.5-0.5B-Instruct'
+    model_path = '/data1/yxfeng/models/qwen/Qwen2.5-0.5B-Instruct'
     
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
     
@@ -439,7 +439,7 @@ if __name__ == '__main__':
         epochs=100,
         batch_size=1,
         lr=5e-5,  # Paper default: 5e-5 (use 2e-5 for LLaMA-3.1-8B)
-        data_path='/data1/chzhang/fyx/SFTTrainer/datasets/math500/train.json',
+        data_path='/home/yxfeng/SFTTrainer/datasets/math500/train.json',
         max_length=2048
     )
     
